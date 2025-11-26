@@ -3,8 +3,6 @@ import csv
 
 hashes = set()
 wordlist = []
-wordhashes = []
-
 
 def hashOpener(path):
     try:
@@ -14,7 +12,7 @@ def hashOpener(path):
     except FileNotFoundError:
         print("Error with opening hash file, please try again")
 
-def wordCheck(path):
+def wordHash(path):
     try:
         with open(path) as file:
             for line in file:
@@ -23,7 +21,10 @@ def wordCheck(path):
                 hash.update(og_line.encode('utf-8'))
                 hash = hash.hexdigest()
                 if hash in hashes:
-                    print(line)
+                    print(f"CRACKED[{hash}]")
+                else:
+                    print(f"UNCRACKED[{hash}]")
+
     except FileNotFoundError:
         print("Error finding wordlist file, please try again")
 
@@ -32,7 +33,6 @@ def main():
     wordpath = input("What is the name of your wordlist file? ")
 
     hashOpener(hashpath)
-    wordCheck(wordpath)
-
+    wordHash(wordpath)
 
 main()
